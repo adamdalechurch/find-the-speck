@@ -33,7 +33,7 @@ document.addEventListener("mousemove", function(e) {
     let speckRect = speck.getBoundingClientRect();
 
     // Check if the gradient is within the vicinity of the speck
-    if (Math.abs(gradientRect.x - speckaRect.x) < 50 && Math.abs(gradientRect.y - speckRect.y) < 50) {
+    if (Math.abs(gradientRect.x - speckRect.x) < 50 && Math.abs(gradientRect.y - speckRect.y) < 50) {
         setTimeout(() => {
             // Move the speck to a new random position
             set_element_position(speck, Math.random() * window.innerWidth, Math.random() * window.innerHeight);
