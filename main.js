@@ -131,13 +131,17 @@ function there_is_no_speck() {
 
 }
 
+function change_text_color(color) {
+    elem("score").style.color = color;
+    elem("title").style.color = color;
+}
+
 function reveal_speck() {
     fade_out(elem("darkness"));
     fade_out(elem("gradient"));
 
-    let score = elem("score");
-    score.style.color = "black";
-    
+    change_text_color("black");
+
     // remove event listener from speck:
     document.body.removeEventListener("click", assign_random_position);
     window.setTimeout(hide_speck, 5000);
@@ -146,11 +150,8 @@ function reveal_speck() {
 function hide_speck() {
     fade_in(elem("darkness"));
 
-    let score = elem("score");
-    score.style.color = "white";
+    change_text_color("white");
 
-    let title = elem("title");
-    title.style.color = "white";
     window.setTimeout(function(){
         assign_random_position();
         document.body.addEventListener("click", assign_random_position);
