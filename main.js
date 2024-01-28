@@ -1,4 +1,5 @@
 const SLOWEST_SPEED = 750;
+const GREEN = "#16ca2d";
 
 let invl = 0;
 let score = 0;
@@ -29,26 +30,11 @@ function move_flashlight(){
     set_element_position(elem("flashlight"), event.pageX, event.pageY);
 }
 
-document.addEventListener("mousemove", function(e) {
-    set_element_position(elem("gradient"), e.pageX, e.pageY);
+// document.addEventListener("mousemove", function(e) {
+//     set_element_position(elem("gradient"), e.pageX, e.pageY);
 
-    move_flashlight();
-
-    let speck = elem("speck");
-    let gradient = elem("gradient");
-
-    let gradientRect = gradient.getBoundingClientRect();
-    let speckRect = speck.getBoundingClientRect();
-
-    // Check if the gradient is within the vicinity of the speck
-    if (Math.abs(gradientRect.x - speckRect.x) < 50 && Math.abs(gradientRect.y - speckRect.y) < 50) {
-        setTimeout(() => {
-            // Move the speck to a new random position
-            set_element_position(speck, Math.random() * window.innerWidth, Math.random() * window.innerHeight);
-        }, 1000); // Delay of 1 second
-    }
-});
-
+    
+// });
 
 function move_circle_randomly() {
     let direction = Math.floor(Math.random() * 4);
@@ -168,7 +154,7 @@ function there_is_no_speck() {
     if (no_speck) {
       score++;
       light_health += light_health < 100 ? 10 : 0;
-      elem("noSpeck").style.color = "green";
+      elem("noSpeck").style.color = GREEN;
     } else {
       score--;
       light_health -= light_health > 0 ? 10 : 0;
@@ -225,4 +211,43 @@ function instructions(){
 function back_to_game(){
   elem("instructions").style.display = "none";
   elem("game").style.display = "block";
+}
+
+function isTouchDevice() {
+    return 'ontouchstart' in window        // works on most browsers 
+        || navigator.maxTouchPoints;       // works on IE10/11 and Surface
+};
+
+// Function to handle the position update, common for mouse and touch
+function updatePosition(event) {
+    var x = event.pageX || event.touches[0].pageX;
+    var y = event.pageY || event.touches[0].pageY;
+    set_element_position(elem("gradient"), x, y);
+    
+    move_flashlight();
+
+    let speck = elem("speck");
+    let gradient = elem("gradient");
+
+    let gradientRect = gradient.getBoundingClientRect();
+    let speckRect = speck.getBoundingClientRect();
+
+    // Check if the gradient is within the vicinity of the speck
+    if (Math.abs(gradientRect.x - speckRect.x) < 50 && Math.abs(gradientRect.y - speckRect.y) < 50) {
+        setTimeout(() => {
+            // Move the speck to a new random position
+            set_element_position(speck, Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+        }, 1000); // Delay of 1 second
+    }
+}
+
+if (isTouchDevice()) {
+    // Add touch event listeners
+    document.addEventListener("touchmove", function(e) {
+        e.preventDefault(); // Prevent scrolling when touching the canvas
+        updatePosition(e);
+    }, { passive: false });
+} else {
+    // Add mouse event listeners
+    document.addEventListener("mousemove", updatePosition);
 }
