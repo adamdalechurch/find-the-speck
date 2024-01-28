@@ -79,6 +79,8 @@ function assign_random_position(event) {
         }
 
       score++;
+      light_health += light_health < 100 ? 10 : 0;
+      draw_light(light_health);
       elem("score").innerHTML = "Score: " + score;
     }
 
@@ -96,11 +98,14 @@ function assign_random_position(event) {
     invl = setInterval(update_game, 1000);
 }
 
-function tick_flashlight() {
+function draw_light(light_health) {
     const max_width = 500
-    light_health--;
     elem("gradient").style.width = light_health / 100 * max_width + "px";
     elem("gradient").style.height = light_health / 100 * max_width + "px";
+}
+
+function tick_flashlight() {
+    draw_light(light_health--);
 
     let batteryLife = elem("batteryLife");
     if (light_health > 90){
