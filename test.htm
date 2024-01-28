@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the speck</title>
+</head>
+<body>
+    <img width="50" height="50" id="flashlight" src="http://localhost:8000/lantern.png" alt="flashlight" onmousemove="move_flashlight()" style="position: fixed; z-index: 1000; pointer-events: none;">
+    <div id="title" class="title">Find the speck...     <button onclick="there_is_no_speck()">There is no speck...</button></div>
+    <div id="score" class="score">Score: 0</div>
+    <div id="darkness" class="darkness"></div>
+    <div id="gradient" class="gradient"></div>
+    <div id="redCircle" class="red-circle"></div>
+    <script src="main.js"></script>
+</script>
+</body>
+</html>
