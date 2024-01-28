@@ -1,9 +1,12 @@
-
 let invl = 0;
 let score = 0;
 let no_speck = false;
 let light_health = 100;
-const flashlight = document.getElementById("flashlight");
+let flashlight, gradient, speck, darkness, title, score_text;
+
+function elem(id) {
+    return document.getElementById(id);
+}
 
 function set_element_position(element, x, y) {
     element.style.left = x + 'px';
@@ -21,13 +24,16 @@ function fade_in(element) {
 }
 
 function move_flashlight(){
-    set_element_position(flashlight, event.pageX, event.pageY);
+    set_element_position(elem("flashlight"), event.pageX, event.pageY);
 }
 
 document.addEventListener("mousemove", function(e) {
-    set_element_position(document.getElementById("gradient"), e.pageX, e.pageY);
+    set_element_position(elem("gradient"), e.pageX, e.pageY);
 
     move_flashlight();
+
+    let speck = elem("speck");
+    let gradient = elem("gradient");
 
     let gradientRect = gradient.getBoundingClientRect();
     let speckRect = speck.getBoundingClientRect();
@@ -44,6 +50,7 @@ document.addEventListener("mousemove", function(e) {
 
 function move_circle_randomly() {
     let direction = Math.floor(Math.random() * 4);
+    let speck = elem("speck");
     switch (direction) {
         case 0:
             speck.style.left = parseInt(speck.style.left) + 10 + 'px';
@@ -62,7 +69,7 @@ function move_circle_randomly() {
 
 function assign_random_position(event) {
     clearInterval(invl);
-    let speck = document.getElementById("speck");
+    let speck = elem("speck");
 
     //if event is not equal to null, then check if the mouse cursor is within 10px of the speck
     if (event != undefined) {
@@ -73,7 +80,7 @@ function assign_random_position(event) {
         }
 
       score++;
-      document.getElementById("score").innerHTML = "Score: " + score;
+      elem("score").innerHTML = "Score: " + score;
     }
 
     set_element_position(speck, Math.random() * window.innerWidth, Math.random() * window.innerHeight);
@@ -93,8 +100,8 @@ function assign_random_position(event) {
 function tick_flashlight() {
     const max_width = 500
     light_health--;
-    document.getElementById("gradient").style.width = light_health / 100 * max_width + "px";
-    document.getElementById("gradient").style.height = light_health / 100 * max_width + "px";
+    elem("gradient").style.width = light_health / 100 * max_width + "px";
+    elem("gradient").style.height = light_health / 100 * max_width + "px";
 }
 
 function update_game() {
@@ -105,8 +112,8 @@ function update_game() {
         alert("Game over! Your score is " + score);
         score = 0;
         light_health = 100;
-        document.getElementById("score").innerHTML = "Score: " + score;
-        document.getElementById("flashlight").style.opacity = 1;
+        elem("score").innerHTML = "Score: " + score;
+        elem("flashlight").style.opacity = 1;
         assign_random_position();
     }
 }
@@ -120,19 +127,16 @@ function there_is_no_speck() {
         score--;
     }
 
-    document.getElementById("score").innerHTML = "Score: " + score;
+    elem("score").innerHTML = "Score: " + score;
 
 }
 
 function reveal_speck() {
-    fade_out(document.getElementById("darkness"));
-    fade_out(document.getElementById("gradient"));
+    fade_out(elem("darkness"));
+    fade_out(elem("gradient"));
 
-    let score = document.getElementById("score");
+    let score = elem("score");
     score.style.color = "black";
-
-    let title = document.getElementById("title");
-    title.style.color = "black";
     
     // remove event listener from speck:
     document.body.removeEventListener("click", assign_random_position);
@@ -140,18 +144,17 @@ function reveal_speck() {
 }
 
 function hide_speck() {
-    fade_in(document.getElementById("darkness"));
+    fade_in(elem("darkness"));
 
-    let score = document.getElementById("score");
+    let score = elem("score");
     score.style.color = "white";
 
-    let title = document.getElementById("title");
+    let title = elem("title");
     title.style.color = "white";
-
     window.setTimeout(function(){
         assign_random_position();
         document.body.addEventListener("click", assign_random_position);
-        fade_in(document.getElementById("gradient"));
+        fade_in(elem("gradient"));
     }, 1000);
 }
 
@@ -160,5 +163,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //do work
     assign_random_position();
     //add event lister to the body
-    document.body.addEventListener("click", assign_random_position); 
+    document.body.addEventListener("click", assign_random_position);     
 });
