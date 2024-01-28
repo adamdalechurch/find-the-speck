@@ -27,7 +27,7 @@ body, html {
   cursor: url( 'http://localhost:8000/kassie_circle.png' ) auto;
 }
 
-.red-circle {
+#speck {
   position: fixed;
   width: 10px; /* Size of the red circle */
   height: 10px;

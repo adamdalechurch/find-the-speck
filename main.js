@@ -30,13 +30,13 @@ document.addEventListener("mousemove", function(e) {
     move_flashlight();
 
     let gradientRect = gradient.getBoundingClientRect();
-    let redCircleRect = redCircle.getBoundingClientRect();
+    let speckRect = speck.getBoundingClientRect();
 
-    // Check if the gradient is within the vicinity of the red circle
-    if (Math.abs(gradientRect.x - redCircleaRect.x) < 50 && Math.abs(gradientRect.y - redCircleRect.y) < 50) {
+    // Check if the gradient is within the vicinity of the speck
+    if (Math.abs(gradientRect.x - speckaRect.x) < 50 && Math.abs(gradientRect.y - speckRect.y) < 50) {
         setTimeout(() => {
-            // Move the red circle to a new random position
-            set_element_position(redCircle, Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+            // Move the speck to a new random position
+            set_element_position(speck, Math.random() * window.innerWidth, Math.random() * window.innerHeight);
         }, 1000); // Delay of 1 second
     }
 });
@@ -46,29 +46,29 @@ function move_circle_randomly() {
     let direction = Math.floor(Math.random() * 4);
     switch (direction) {
         case 0:
-            redCircle.style.left = parseInt(redCircle.style.left) + 10 + 'px';
+            speck.style.left = parseInt(speck.style.left) + 10 + 'px';
             break;
         case 1:
-            redCircle.style.left = parseInt(redCircle.style.left) - 10 + 'px';
+            speck.style.left = parseInt(speck.style.left) - 10 + 'px';
             break;
         case 2:
-            redCircle.style.top = parseInt(redCircle.style.top) + 10 + 'px';
+            speck.style.top = parseInt(speck.style.top) + 10 + 'px';
             break;
         case 3:
-            redCircle.style.top = parseInt(redCircle.style.top) - 10 + 'px';
+            speck.style.top = parseInt(speck.style.top) - 10 + 'px';
             break;
     }
 }
 
 function assign_random_position(event) {
     clearInterval(invl);
-    let redCircle = document.getElementById("redCircle");
+    let speck = document.getElementById("speck");
 
-    //if event is not equal to null, then check if the mouse cursor is within 10px of the red circle
+    //if event is not equal to null, then check if the mouse cursor is within 10px of the speck
     if (event != undefined) {
-        let redCircleRect = redCircle.getBoundingClientRect();
-        if (Math.abs(event.pageX - redCircleRect.x) > 30  || Math.abs(event.pageY - redCircleRect.y) > 30) {
-            //if the mouse cursor is within 10px of the red circle, then return
+        let speckRect = speck.getBoundingClientRect();
+        if (Math.abs(event.pageX - speckRect.x) > 30  || Math.abs(event.pageY - speckRect.y) > 30) {
+            //if the mouse cursor is within 10px of the speck, then return
             return;
         }
 
@@ -76,14 +76,14 @@ function assign_random_position(event) {
       document.getElementById("score").innerHTML = "Score: " + score;
     }
 
-    set_element_position(redCircle, Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+    set_element_position(speck, Math.random() * window.innerWidth, Math.random() * window.innerHeight);
 
-    // at a random rate of 1/10, set the red circle display to none
+    // at a random rate of 1/10, set the speck display to none
     if (Math.random() < 0.1) {
-        redCircle.style.display = "none";
+        speck.style.display = "none";
         no_speck = true;
     } else {
-        redCircle.style.display = "block";
+        speck.style.display = "block";
         no_speck = false;
     }
 
