@@ -1,7 +1,10 @@
+const SLOWEST_SPEED = 750;
+
 let invl = 0;
 let score = 0;
 let no_speck = false;
 let light_health = 100;
+let tick_speed = SLOWEST_SPEED;
 
 function elem(id) {
     return document.getElementById(id);
@@ -67,7 +70,7 @@ function move_circle_randomly() {
 }
 
 function assign_random_position(event) {
-    clearInterval(invl);
+    clearTimeout(invl);
     let speck = elem("speck");
 
     //if event is not equal to null, then check if the mouse cursor is within 10px of the speck
@@ -95,7 +98,7 @@ function assign_random_position(event) {
         no_speck = false;
     }
 
-    invl = setInterval(update_game, 1000);
+    invl = setTimeout(update_game, tick_speed--);
 }
 
 function draw_light(light_health) {
@@ -128,27 +131,48 @@ function tick_flashlight() {
     }
 }
 
+function write_gameover() {
+    elem("prompt").innerHTML = "Game Over! your score is " + score;
+    document.body.removeEventListener("click", assign_random_position);
+    elem("noSpeck").style.display = "none";
+    elem("restartGame").style.display = "inline";
+}
+
+function restart_game() {
+  elem("prompt").innerHTML = "Find the speck...";
+  score = 0;
+  light_health = 100;
+  tick_speed = SLOWEST_SPEED;
+  elem("score").innerHTML = "Score: " + score;
+  elem("flashlight").style.opacity = 1;
+
+  elem("noSpeck").style.display = "inline";
+  elem("restartGame").style.display = "none";
+  assign_random_position();
+}
+
 function update_game() {
     move_circle_randomly();
     tick_flashlight();
     if (light_health <= 0) {
         clearInterval(invl);
-        alert("Game over! Your score is " + score);
-        score = 0;
-        light_health = 100;
-        elem("score").innerHTML = "Score: " + score;
-        elem("flashlight").style.opacity = 1;
-        assign_random_position();
+        // alert("Game over! Your score is " + score);
+        write_gameover();
     }
+    invl = setTimeout(update_game, tick_speed--);
 }
 
 function there_is_no_speck() {
     reveal_speck();
     
     if (no_speck) {
-        score++;
+      score++;
+      light_health += light_health < 100 ? 10 : 0;
+      elem("noSpeck").style.color = "green";
     } else {
-        score--;
+      score--;
+      light_health -= light_health > 0 ? 10 : 0;
+      elem("noSpeck").style.color = "red";
     }
 
     elem("score").innerHTML = "Score: " + score;
@@ -173,13 +197,14 @@ function reveal_speck() {
 
 function hide_speck() {
     fade_in(elem("darkness"));
-
+    fade_out(elem("speck"));
     change_text_color("white");
-
+    fade_in(elem("gradient"));
     window.setTimeout(function(){
-        assign_random_position();
-        document.body.addEventListener("click", assign_random_position);
-        fade_in(elem("gradient"));
+      assign_random_position();
+      document.body.addEventListener("click", assign_random_position);
+      elem("noSpeck").style.color = "white";
+      fade_in(elem("speck"));
     }, 1000);
 }
 
@@ -187,6 +212,17 @@ function hide_speck() {
 document.addEventListener("DOMContentLoaded", function(event) {
     //do work
     assign_random_position();
+    elem("restartGame").style.display = "none";
     //add event lister to the body
     document.body.addEventListener("click", assign_random_position);     
 });
+
+function instructions(){
+  elem("instructions").style.display = "block";
+  elem("game").style.display = "none";
+}
+
+function back_to_game(){
+  elem("instructions").style.display = "none";
+  elem("game").style.display = "block";
+}

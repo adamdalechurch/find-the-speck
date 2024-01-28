@@ -2,15 +2,19 @@ body, html {
   height: 100%;
   margin: 0;
   overflow: hidden;
-  background: white;
+  font-family: consolas;
+  color: white;
+  background: black;
 }
 
 #darkness{
   height: 100%;
+  width: 100%;
   margin: 0;
   overflow: hidden;
   background: black;
-  z-index: 100;
+  z-index: 101;
+  position: fixed;
 }
 #batteryLife{
   position: fixed;
@@ -31,6 +35,7 @@ body, html {
   background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(0, 0, 0, 1) 70%);
   transform: translate(-50%, -50%);
   transition: background 1s ease;
+  z-index: 102;
 }
 
 #speck {
@@ -40,7 +45,7 @@ body, html {
   background-color: black;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 1;
+  z-index: 103;
 }
 
 #title {
@@ -49,7 +54,6 @@ body, html {
   left: 0;
   color: white;
   z-index: 1000;
-  font-family: consolas;
   font-size: 60px;
 }
 
@@ -59,22 +63,37 @@ body, html {
   right: 0;
   color: white;
   z-index: 1000;
-  font-family: consolas;
   font-size: 60px;
 }
 
 .button {
-  position: fixed;
-  top: 0;
-  right: 0;
   color: white;
+  background-color: black;
   z-index: 1000;
-  font-family: consolas;
-  font-size: 60px;
+  font-size: 20px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+.button:hover {
+  color: black;
+  background-color: white;
+  border: 2px solid black;
 }
 
 #flashlight {
   position: fixed;
   z-index: 1000;
   pointer-events: none;
+}
+
+#game{
+ display: block;
+background: black;
+  z-index: 100;
+}
+
+#instructions{
+  display: none;
+  background: black;
 }
