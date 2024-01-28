@@ -127,6 +127,12 @@ function there_is_no_speck() {
 function reveal_speck() {
     fade_out(document.getElementById("darkness"));
     fade_out(document.getElementById("gradient"));
+
+    let score = document.getElementById("score");
+    score.style.color = "black";
+
+    let title = document.getElementById("title");
+    title.style.color = "black";
     
     // remove event listener from speck:
     document.body.removeEventListener("click", assign_random_position);
@@ -135,6 +141,13 @@ function reveal_speck() {
 
 function hide_speck() {
     fade_in(document.getElementById("darkness"));
+
+    let score = document.getElementById("score");
+    score.style.color = "white";
+
+    let title = document.getElementById("title");
+    title.style.color = "white";
+
     window.setTimeout(function(){
         assign_random_position();
         document.body.addEventListener("click", assign_random_position);
