@@ -2,7 +2,6 @@ let invl = 0;
 let score = 0;
 let no_speck = false;
 let light_health = 100;
-let flashlight, gradient, speck, darkness, title, score_text;
 
 function elem(id) {
     return document.getElementById(id);
