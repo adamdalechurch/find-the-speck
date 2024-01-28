@@ -7,12 +7,15 @@
     <title>Find the speck</title>
 </head>
 <body>
-    <img width="50" height="50" id="flashlight" src="http://localhost:8000/lantern.png" alt="flashlight" onmousemove="move_flashlight()" style="position: fixed; z-index: 1000; pointer-events: none;">
-    <div id="title" class="title">Find the speck...     <button onclick="there_is_no_speck()">There is no speck...</button></div>
+    <img width="50" height="50" id="flashlight" src="lantern.png" alt="flashlight" style="position: fixed; z-index: 1000; pointer-events: none;">
+    <div id="title" class="title">Find the speck...    
+         <button onclick="there_is_no_speck()">There is no speck...</button>
+        </div>
     <div id="score" class="score">Score: 0</div>
     <div id="darkness" class="darkness"></div>
     <div id="gradient" class="gradient"></div>
     <div id="speck" class="speck"></div>
+    <img width="150" height="150" id="batteryLife" src="battery_life100.png" alt="batteryLife">
     <script src="main.js"></script>
 </script>
 </body>

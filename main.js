@@ -101,6 +101,26 @@ function tick_flashlight() {
     light_health--;
     elem("gradient").style.width = light_health / 100 * max_width + "px";
     elem("gradient").style.height = light_health / 100 * max_width + "px";
+
+    let batteryLife = elem("batteryLife");
+    if (light_health > 90){
+        batteryLife.src = "battery_life100.png"
+    }
+    if (light_health <= 90 && light_health > 70){
+        batteryLife.src = "battery_life90.png"
+    }
+    if (light_health <= 70 && light_health > 50){
+        batteryLife.src = "battery_life70.png"
+    }
+    if (light_health <= 50 && light_health > 30){
+        batteryLife.src = "battery_life50.png"
+    }
+    if (light_health <= 30 && light_health > 10){
+        batteryLife.src = "battery_life30.png"
+    }
+    if (light_health <= 10 && light_health > 0){
+        batteryLife.src = "battery_life10.png"
+    }
 }
 
 function update_game() {

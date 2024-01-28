@@ -3,7 +3,6 @@ body, html {
   margin: 0;
   overflow: hidden;
   background: white;
-  cursor: url( 'http://localhost:8000/kassie_circle.png' ) auto;
 }
 
 #darkness{
@@ -12,9 +11,17 @@ body, html {
   overflow: hidden;
   background: black;
   z-index: 100;
-  cursor: url( 'http://localhost:8000/kassie_circle.png' ) auto;
 }
-
+#batteryLife{
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  color: white;
+  z-index: 1000;
+  font-family: consolas;
+  font-size: 60px;
+  opacity: .8
+}
 .gradient {
   position: fixed;
   pointer-events: none;
@@ -24,7 +31,6 @@ body, html {
   background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(0, 0, 0, 1) 70%);
   transform: translate(-50%, -50%);
   transition: background 1s ease;
-  cursor: url( 'http://localhost:8000/kassie_circle.png' ) auto;
 }
 
 #speck {
@@ -71,9 +77,4 @@ body, html {
   position: fixed;
   z-index: 1000;
   pointer-events: none;
-}
-
-/* reposition cursor to center */
- #flashlight {
-  cursor: url( 'http://localhost:8000/kassie_circle.png' ) -200px -200px, auto;
 }
