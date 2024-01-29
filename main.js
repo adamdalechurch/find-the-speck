@@ -284,5 +284,4 @@ document.addEventListener("resize", function(e){
     } else if (isDesktopWidth()){
         scale = SCALE_DESKTOP;
     }
-    // document.body.style.transform = "scale(" + scale + ")";
 });
