@@ -4,7 +4,7 @@ body, html {
   overflow: hidden;
   font-family: consolas;
   color: white;
-  background: black;
+  background: white;
 }
 
 #darkness{
@@ -18,14 +18,15 @@ body, html {
 }
 #batteryLife{
   position: fixed;
-  bottom: 25px;
-  right: 25px;
+  bottom: 1%;
+  right: 1%;
   color: white;
   z-index: 1000;
   font-family: consolas;
   font-size: 60px;
   opacity: .8
 }
+
 .gradient {
   position: fixed;
   pointer-events: none;
@@ -50,20 +51,21 @@ body, html {
 
 #title {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 1%;
+  left: 1%;
   color: white;
   z-index: 1000;
-  font-size: 60px;
+  font-size: 40px;
+  width: 75%;
 }
 
 #score {
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 1%;
+  right: 1%;
   color: white;
   z-index: 1000;
-  font-size: 60px;
+  font-size: 40px;
 }
 
 .button {
@@ -95,5 +97,48 @@ background: black;
 
 #instructions{
   display: none;
+  padding: 1%;
   background: black;
+}
+
+/* Styles for tablets */
+@media screen and (max-width: 1024px) {
+  #batteryLife, #title, #score {
+    font-size: 30px
+  }
+
+  #speck {
+    width: 6.67px; /* 2/3 of 10px */
+    height: 6.67px;
+  }
+
+  .button {
+    font-size: 13.33px; /* 2/3 of 20px */
+  }
+
+  .gradient {
+    width: 333.33px; /* 2/3 of 500px */
+    height: 333.33px;
+  }
+}
+
+/* Styles for mobile */
+@media screen and (max-width: 600px) {
+  #batteryLife, #title, #score {
+    font-size: 20px; /* 1/3 of 60px */
+  }
+
+  #speck {
+    width: 3.33px; /* 1/3 of 10px */
+    height: 3.33px;
+  }
+
+  .button {
+    font-size: 10px
+  }
+
+  .gradient {
+    width: 166.67px; /* 1/3 of 500px */
+    height: 166.67px;
+  }
 }

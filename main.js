@@ -1,68 +1,77 @@
 const SLOWEST_SPEED = 750;
 const GREEN = "#16ca2d";
+const MAX_WIDTH = 500;
+const SCALE_MOBILE = 1/3;
+const SCALE_TABLET = 2/3;
+const SCALE_DESKTOP = 1;
+const MOBILE_WIDTH_THRESHOLD = 800;
+const TABLET_WIDTH_THRESHOLD = 1200;
+const CLICK_RANGE = 30;
+const REVEAL_SPECK_TIMEOUT = 1000;
+const MOVE_DISTANCE = 10;
 
 let invl = 0;
 let score = 0;
 let no_speck = false;
 let light_health = 100;
 let tick_speed = SLOWEST_SPEED;
+let scale = 1;
 
-function elem(id) {
+function elem(id){
     return document.getElementById(id);
 }
 
-function set_element_position(element, x, y) {
+function set_element_position(element, x, y){
     element.style.left = x + 'px';
     element.style.top = y + 'px';
 }
 
-function fade_out(element) {
+function fade_out(element){
     element.style.opacity = 0;
     element.style.transition = "opacity 1s ease";
 }
 
-function fade_in(element) {
+function fade_in(element){
     element.style.opacity = 1;
     element.style.transition = "opacity 1s ease";
 }
 
-function move_flashlight(){
-    set_element_position(elem("flashlight"), event.pageX, event.pageY);
+function move_flashlight(x, y){
+    set_element_position(elem("flashlight"), x, y);
 }
 
-// document.addEventListener("mousemove", function(e) {
-//     set_element_position(elem("gradient"), e.pageX, e.pageY);
+function move_gradient(x, y){
+    set_element_position(elem("gradient"), x, y);
+}
 
-    
-// });
 
-function move_circle_randomly() {
+function move_circle_randomly(){
     let direction = Math.floor(Math.random() * 4);
     let speck = elem("speck");
-    switch (direction) {
+    switch (direction){
         case 0:
-            speck.style.left = parseInt(speck.style.left) + 10 + 'px';
+            speck.style.left = parseInt(speck.style.left) + ( MOVE_DISTANCE  * scale  )+ 'px';
             break;
         case 1:
-            speck.style.left = parseInt(speck.style.left) - 10 + 'px';
+            speck.style.left = parseInt(speck.style.left) - ( MOVE_DISTANCE * scale ) + 'px';
             break;
         case 2:
-            speck.style.top = parseInt(speck.style.top) + 10 + 'px';
+            speck.style.top = parseInt(speck.style.top) + ( MOVE_DISTANCE * scale )  + 'px';
             break;
         case 3:
-            speck.style.top = parseInt(speck.style.top) - 10 + 'px';
+            speck.style.top = parseInt(speck.style.top) - ( MOVE_DISTANCE * scale )  + 'px';
             break;
     }
 }
 
-function assign_random_position(event) {
+function assign_random_position(event){
     clearTimeout(invl);
     let speck = elem("speck");
 
     //if event is not equal to null, then check if the mouse cursor is within 10px of the speck
-    if (event != undefined) {
+    if (event != undefined){
         let speckRect = speck.getBoundingClientRect();
-        if (Math.abs(event.pageX - speckRect.x) > 30  || Math.abs(event.pageY - speckRect.y) > 30) {
+        if (Math.abs(event.pageX - speckRect.x) > ( CLICK_RANGE * scale )  || Math.abs(event.pageY - speckRect.y) > ( CLICK_RANGE * scale ) ){
             //if the mouse cursor is within 10px of the speck, then return
             return;
         }
@@ -76,7 +85,7 @@ function assign_random_position(event) {
     set_element_position(speck, Math.random() * window.innerWidth, Math.random() * window.innerHeight);
 
     // at a random rate of 1/10, set the speck display to none
-    if (Math.random() < 0.1) {
+    if (Math.random() < 0.1){
         speck.style.display = "none";
         no_speck = true;
     } else {
@@ -87,13 +96,12 @@ function assign_random_position(event) {
     invl = setTimeout(update_game, tick_speed--);
 }
 
-function draw_light(light_health) {
-    const max_width = 500
-    elem("gradient").style.width = light_health / 100 * max_width + "px";
-    elem("gradient").style.height = light_health / 100 * max_width + "px";
+function draw_light(light_health){
+    elem("gradient").style.width = (light_health / 100 * MAX_WIDTH) * scale + "px";
+    elem("gradient").style.height = (light_health / 100 * MAX_WIDTH) * scale + "px";
 }
 
-function tick_flashlight() {
+function tick_flashlight(){
     draw_light(light_health--);
 
     let batteryLife = elem("batteryLife");
@@ -117,14 +125,14 @@ function tick_flashlight() {
     }
 }
 
-function write_gameover() {
+function write_gameover(){
     elem("prompt").innerHTML = "Game Over! your score is " + score;
     document.body.removeEventListener("click", assign_random_position);
     elem("noSpeck").style.display = "none";
     elem("restartGame").style.display = "inline";
 }
 
-function restart_game() {
+function restart_game(){
   elem("prompt").innerHTML = "Find the speck...";
   score = 0;
   light_health = 100;
@@ -137,10 +145,10 @@ function restart_game() {
   assign_random_position();
 }
 
-function update_game() {
+function update_game(){
     move_circle_randomly();
     tick_flashlight();
-    if (light_health <= 0) {
+    if (light_health <= 0){
         clearInterval(invl);
         // alert("Game over! Your score is " + score);
         write_gameover();
@@ -148,10 +156,10 @@ function update_game() {
     invl = setTimeout(update_game, tick_speed--);
 }
 
-function there_is_no_speck() {
+function there_is_no_speck(){
     reveal_speck();
     
-    if (no_speck) {
+    if (no_speck){
       score++;
       light_health += light_health < 100 ? 10 : 0;
       elem("noSpeck").style.color = GREEN;
@@ -165,12 +173,12 @@ function there_is_no_speck() {
 
 }
 
-function change_text_color(color) {
+function change_text_color(color){
     elem("score").style.color = color;
     elem("title").style.color = color;
 }
 
-function reveal_speck() {
+function reveal_speck(){
     fade_out(elem("darkness"));
     fade_out(elem("gradient"));
 
@@ -178,10 +186,11 @@ function reveal_speck() {
 
     // remove event listener from speck:
     document.body.removeEventListener("click", assign_random_position);
-    window.setTimeout(hide_speck, 5000);
+   
+    window.setTimeout(hide_speck, REVEAL_SPECK_TIMEOUT);
 }
 
-function hide_speck() {
+function hide_speck(){
     fade_in(elem("darkness"));
     fade_out(elem("speck"));
     change_text_color("white");
@@ -195,7 +204,7 @@ function hide_speck() {
 }
 
 // vanilla document reay using domcontentloaded:
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function(event){
     //do work
     assign_random_position();
     elem("restartGame").style.display = "none";
@@ -204,27 +213,42 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 function instructions(){
+  document.body.style.backgroundColor = "black";
   elem("instructions").style.display = "block";
   elem("game").style.display = "none";
 }
 
 function back_to_game(){
+  document.body.style.backgroundColor = "white";
   elem("instructions").style.display = "none";
   elem("game").style.display = "block";
 }
 
-function isTouchDevice() {
+function isTouchDevice(){
     return 'ontouchstart' in window        // works on most browsers 
         || navigator.maxTouchPoints;       // works on IE10/11 and Surface
 };
 
+function isMobileWidth(){
+    return window.innerWidth < MOBILE_WIDTH_THRESHOLD
+}
+
+function isTabletWidth(){
+    return window.innerWidth < TABLET_WIDTH_THRESHOLD && window.innerWidth >= MOBILE_WIDTH_THRESHOLD;
+}
+
+function isDesktopWidth(){
+    return window.innerWidth >= TABLET_WIDTH_THRESHOLD;
+}
+
 // Function to handle the position update, common for mouse and touch
-function updatePosition(event) {
+function updatePosition(event){
     var x = event.pageX || event.touches[0].pageX;
     var y = event.pageY || event.touches[0].pageY;
-    set_element_position(elem("gradient"), x, y);
+
+    move_gradient(x, y);
     
-    move_flashlight();
+    move_flashlight(x, y);
 
     let speck = elem("speck");
     let gradient = elem("gradient");
@@ -233,7 +257,7 @@ function updatePosition(event) {
     let speckRect = speck.getBoundingClientRect();
 
     // Check if the gradient is within the vicinity of the speck
-    if (Math.abs(gradientRect.x - speckRect.x) < 50 && Math.abs(gradientRect.y - speckRect.y) < 50) {
+    if (Math.abs(gradientRect.x - speckRect.x) < 50 && Math.abs(gradientRect.y - speckRect.y) < 50){
         setTimeout(() => {
             // Move the speck to a new random position
             set_element_position(speck, Math.random() * window.innerWidth, Math.random() * window.innerHeight);
@@ -241,9 +265,9 @@ function updatePosition(event) {
     }
 }
 
-if (isTouchDevice()) {
+if (isTouchDevice()){
     // Add touch event listeners
-    document.addEventListener("touchmove", function(e) {
+    document.addEventListener("touchmove", function(e){
         e.preventDefault(); // Prevent scrolling when touching the canvas
         updatePosition(e);
     }, { passive: false });
@@ -251,3 +275,14 @@ if (isTouchDevice()) {
     // Add mouse event listeners
     document.addEventListener("mousemove", updatePosition);
 }
+
+document.addEventListener("resize", function(e){
+    if (isMobileWidth()){
+        scale = SCALE_MOBILE;
+    } else if (isTabletWidth()){
+        scale = SCALE_TABLET;
+    } else if (isDesktopWidth()){
+        scale = SCALE_DESKTOP;
+    }
+    // document.body.style.transform = "scale(" + scale + ")";
+});
