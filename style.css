@@ -12,7 +12,7 @@ body, html {
   width: 100%;
   margin: 0;
   overflow: hidden;
-  background: white !important;
+  background: black;
   z-index: 101;
   position: fixed;
 }
