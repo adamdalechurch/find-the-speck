@@ -48,20 +48,33 @@ function move_gradient(x, y){
 function move_circle_randomly(){
     let direction = Math.floor(Math.random() * 4);
     let speck = elem("speck");
+    let posX = parseInt(speck.style.left) 
+    let posY = parseInt(speck.style.top)
     switch (direction){
         case 0:
-            speck.style.left = parseInt(speck.style.left) + ( MOVE_DISTANCE  * scale  )+ 'px';
+            posX  += ( MOVE_DISTANCE  * scale  )
             break;
         case 1:
-            speck.style.left = parseInt(speck.style.left) - ( MOVE_DISTANCE * scale ) + 'px';
+            posX  += ( MOVE_DISTANCE * scale )
             break;
         case 2:
-            speck.style.top = parseInt(speck.style.top) + ( MOVE_DISTANCE * scale )  + 'px';
+            posY += ( MOVE_DISTANCE * scale )
             break;
         case 3:
-            speck.style.top = parseInt(speck.style.top) - ( MOVE_DISTANCE * scale )  + 'px';
+            posY  += ( MOVE_DISTANCE * scale ) 
             break;
     }
+
+    if (posX < 0 || posY < 0){
+        return;
+    }
+
+    if (posX > window.innerWidth || posY > window.innerHeight){
+        return;
+    }
+
+    set_element_position(speck, posX, posY);
+
 }
 
 function assign_random_position(event){
@@ -143,7 +156,7 @@ function restart_game(){
   elem("noSpeck").style.display = "inline";
   elem("restartGame").style.display = "none";
   assign_random_position();
-  document.body.addEventListener("click", assign_random_position);
+document.body.addEventListener("click", assign_random_position);
 }
 
 function update_game(){
