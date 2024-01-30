@@ -143,6 +143,7 @@ function restart_game(){
   elem("noSpeck").style.display = "inline";
   elem("restartGame").style.display = "none";
   assign_random_position();
+  document.body.addEventListener("click", assign_random_position);
 }
 
 function update_game(){
@@ -247,7 +248,6 @@ function updatePosition(event){
     var y = event.pageY || event.touches[0].pageY;
 
     move_gradient(x, y);
-    
     move_flashlight(x, y);
 
     let speck = elem("speck");
