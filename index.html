@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the speck</title>
+</head>
+<body>
+ 
+<div id="game">
+    <img width="50" height="50" id="flashlight" src="lantern.png" alt="flashlight" style="position: fixed; z-index: 1000; pointer-events: none;">
+    <div id="title" class="title">
+        <span id="prompt">Find the speck...</span>    
+        <button id="noSpeck" class="button" onclick="there_is_no_speck()">There is no speck...</button>
+        <button id="restartGame" class="button" onclick="restart_game()">Try Again...</button>
+        <button id="instructionsButton" class="button" onclick="instructions()">?</button>
+    </div>
+    <div id="score" class="score">Score: 0</div>
+    <div id="darkness" class="darkness"></div>
+    <div id="gradient" class="gradient"></div>
+    <div id="speck" class="speck"></div>
+    <img width="150" height="150" id="batteryLife" src="battery_life100.png" alt="batteryLife">
+    </div>
+<div id="instructions">
+    <button class="button" onclick="back_to_game()">Back to game</button>
+    <div class="container">
+    <h1>Find the Speck...</h1>
+    <h2>Objective:</h2>
+    <p>Find and click on the elusive speck, or accurately declare when there is no speck visible, all before your flashlight's battery life runs out.</p>
+    
+    <h2>How to Play:</h2>
+    <ul>
+        <li><strong>Find the Speck:</strong> Move your cursor around the screen to use your flashlight. Click on the speck when you find it.</li>
+        <li><strong>Speck Visibility:</strong> Sometimes the speck may disappear. Stay alert and make a decision based on its visibility.</li>
+        <li><strong>Battery Life:</strong> Each successful click on the speck increases your flashlight's battery life. Incorrect clicks decrease it.</li>
+        <li><strong>Declaring No Speck:</strong> If you believe there is no speck, click the 'There is No Speck' button. Correct declarations increase your battery life, while incorrect ones decrease it.</li>
+        <li><strong>Game Over:</strong> The game ends when your flashlight's battery runs out. Try to achieve a high score before this happens!</li>
+        <li><strong>Restarting the Game:</strong> You can restart the game anytime to try and improve your score.</li>
+    </ul>
+
+    <h2>Tips for Success:</h2>
+    <ul>
+        <li>Keep your cursor moving and stay vigilant to spot the speck or its absence quickly.</li>
+        <li>Balance between searching for the speck and conserving battery life by making careful decisions.</li>
+        <li>Pay close attention to the changing visibility of the speck and respond quickly.</li>
+    </ul>
+
+    <p>Good luck, and have fun playing "Find the Speck"!</p>
+    </div>
+</div>
+    
+<script src="main.js"></script>
+</script>
+</body>
+</html>
