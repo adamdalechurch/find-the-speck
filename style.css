@@ -118,11 +118,6 @@ body, html {
   .button {
     font-size: 13.33px; /* 2/3 of 20px */
   }
-
-  .gradient {
-    width: 333.33px; /* 2/3 of 500px */
-    height: 333.33px;
-  }
 }
 
 /* Styles for mobile */
@@ -138,10 +133,5 @@ body, html {
 
   .button {
     font-size: 10px
-  }
-
-  .gradient {
-    width: 166.67px; /* 1/3 of 500px */
-    height: 166.67px;
   }
 }
