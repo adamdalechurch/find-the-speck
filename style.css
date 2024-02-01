@@ -92,7 +92,7 @@ body, html {
 
 #game{
  display: block;
-background: black;
+ background: black;
   z-index: 100;
 }
 
@@ -100,6 +100,8 @@ background: black;
   display: none;
   padding: 1%;
   background: black;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 /* Styles for tablets */
