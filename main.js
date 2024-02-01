@@ -220,11 +220,20 @@ function hide_speck(){
 // vanilla document reay using domcontentloaded:
 document.addEventListener("DOMContentLoaded", function(event){
     //do work
-    assign_random_position();
+    // assign_random_position();
     elem("restartGame").style.display = "none";
+
+    instructions();
     //add event lister to the body
-    document.body.addEventListener("click", assign_random_position);     
+    // document.body.addEventListener("click", assign_random_position);     
 });
+
+function start_game(){
+    back_to_game();
+    elem("game").style.display = "block";
+    assign_random_position();
+    document.body.addEventListener("click", assign_random_position);
+}
 
 function instructions(){
   document.body.style.backgroundColor = "black";
