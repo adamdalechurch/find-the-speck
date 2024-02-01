@@ -104,10 +104,24 @@ body, html {
   overflow-y: scroll;
 }
 
+#twitter{
+  width: 20px;
+  height: auto;
+  vertical-align: middle;
+}
+
+#twitter-btn{
+  padding: 2px 1px;
+}
+
 /* Styles for tablets */
 @media screen and (max-width: 1024px) {
   #batteryLife, #title, #score {
     font-size: 30px
+  }
+
+  #twitter {
+    width: 15px;
   }
 
   #speck {
@@ -124,6 +138,10 @@ body, html {
 @media screen and (max-width: 600px) {
   #batteryLife, #title, #score {
     font-size: 20px; /* 1/3 of 60px */
+  }
+
+  #twitter {
+    width: 10px;
   }
 
   #speck {
