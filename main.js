@@ -294,25 +294,27 @@ function updatePosition(event){
 }
 
 function init(){
+    const game = elem("game");
     if (isTouchDevice()){
         // Add touch event listeners
-        document.addEventListener("touchmove", function(e){
+        game.addEventListener("touchmove", function(e){
             e.preventDefault(); // Prevent scrolling when touching the canvas
             updatePosition(e);
         }, { passive: false });
     } else {
         // Add mouse event listeners
-        document.addEventListener("mousemove", updatePosition);
+        game.addEventListener("mousemove", updatePosition);
     }
 }
 
 function uninit(){
+    const game = elem("game");
     if (isTouchDevice()){
         // Remove touch event listeners
-        document.removeEventListener("touchmove", updatePosition);
+        game.removeEventListener("touchmove", updatePosition);
     } else {
         // Remove mouse event listeners
-        document.removeEventListener("mousemove", updatePosition);
+        game.removeEventListener("mousemove", updatePosition);
     }
 }
 
