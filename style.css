@@ -120,8 +120,10 @@ body, html {
     font-size: 30px
   }
 
-  #twitter {
-    width: 15px;
+  #twitter-btn{
+    position: fixed;
+    bottom: 1%;
+    left: 1%;
   }
 
   #speck {
