@@ -16,6 +16,7 @@ body, html {
   z-index: 101;
   position: fixed;
 }
+
 #batteryLife{
   position: fixed;
   bottom: 1%;
@@ -108,8 +109,8 @@ background: black;
   }
 
   #speck {
-    width: 6.67px; /* 2/3 of 10px */
-    height: 6.67px;
+    width: 8px; /* 2/3 of 10px */
+    height: 8px;
   }
 
   .button {
@@ -129,8 +130,8 @@ background: black;
   }
 
   #speck {
-    width: 3.33px; /* 1/3 of 10px */
-    height: 3.33px;
+    width:8px; /* 1/3 of 10px */
+    height: 8px;
   }
 
   .button {
