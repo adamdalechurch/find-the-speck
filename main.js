@@ -236,15 +236,21 @@ function start_game(){
 }
 
 function instructions(){
+  uninit();
   document.body.style.backgroundColor = "black";
   elem("instructions").style.display = "block";
   elem("game").style.display = "none";
 }
 
 function back_to_game(){
+  init();
   document.body.style.backgroundColor = "white";
   elem("instructions").style.display = "none";
   elem("game").style.display = "block";
+}
+
+function refresh_page(){
+    location.reload()
 }
 
 function isTouchDevice(){
@@ -287,15 +293,27 @@ function updatePosition(event){
     }
 }
 
-if (isTouchDevice()){
-    // Add touch event listeners
-    document.addEventListener("touchmove", function(e){
-        e.preventDefault(); // Prevent scrolling when touching the canvas
-        updatePosition(e);
-    }, { passive: false });
-} else {
-    // Add mouse event listeners
-    document.addEventListener("mousemove", updatePosition);
+function init(){
+    if (isTouchDevice()){
+        // Add touch event listeners
+        document.addEventListener("touchmove", function(e){
+            e.preventDefault(); // Prevent scrolling when touching the canvas
+            updatePosition(e);
+        }, { passive: false });
+    } else {
+        // Add mouse event listeners
+        document.addEventListener("mousemove", updatePosition);
+    }
+}
+
+function uninit(){
+    if (isTouchDevice()){
+        // Remove touch event listeners
+        document.removeEventListener("touchmove", updatePosition);
+    } else {
+        // Remove mouse event listeners
+        document.removeEventListener("mousemove", updatePosition);
+    }
 }
 
 document.addEventListener("resize", function(e){
@@ -307,3 +325,5 @@ document.addEventListener("resize", function(e){
         scale = SCALE_DESKTOP;
     }
 });
+
+init();

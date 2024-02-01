@@ -110,20 +110,17 @@ body, html {
   vertical-align: middle;
 }
 
-#twitter-btn{
+#twitter-btn {
   padding: 2px 1px;
+  position: fixed;
+  bottom: 1%;
+  left: 1%;
 }
 
 /* Styles for tablets */
 @media screen and (max-width: 1024px) {
   #batteryLife, #title, #score {
     font-size: 30px
-  }
-
-  #twitter-btn{
-    position: fixed;
-    bottom: 1%;
-    left: 1%;
   }
 
   #speck {
